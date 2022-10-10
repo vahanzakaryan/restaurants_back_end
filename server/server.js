@@ -56,12 +56,14 @@ app.post('/updateRating', (req, res) => {
 app.get('/getData', (req, res) => {
     db.query(
         "SELECT * FROM restaurants", (err, result) => {
-            if(err) console.log(err)
-            else res.send(result)
+            if(err) 
+                console.log(err)
+            else 
+                res.send(result)
         }
     )
 })
 
 app.listen(3001, () => {
-    console.log("Yay, my server is running");
+    console.log("Server is running");
 })
