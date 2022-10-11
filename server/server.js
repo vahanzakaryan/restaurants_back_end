@@ -29,10 +29,11 @@ app.post('/postData', (req, res) => {
         "INSERT INTO restaurants (title, description, ratings, geolocation) VALUES (?, ?, ?, ?)",
         [title, description, ratings, geolocation],
        (err, result) => {
+        console.log(result);
         if(err){
             console.log(err);
         }else{
-            res.send("Values inserted!");
+            res.send(result);
         }
        }  
     );
@@ -56,6 +57,37 @@ app.post('/updateRating', (req, res) => {
 app.get('/getData', (req, res) => {
     db.query(
         "SELECT * FROM restaurants", (err, result) => {
+            if(err) 
+                console.log(err)
+            else 
+                res.send(result)
+        }
+    )
+})
+
+app.post('/getData/restaurant', (req, res) => {
+    const {id} = req.body;
+    console.log(id);
+    db.query(
+        "SELECT * FROM restaurants WHERE (id = ?)",
+        [id],
+       (err, result) => {
+        if(err){
+            console.log(err);
+        }else{
+            res.send(result);
+        }
+       }  
+    );
+})
+
+app.get('/getData/restaurant', (req, res) => {
+    const {id} = req.body;
+    console.log(req.body);
+    db.query(
+        "SELECT * FROM restaurants WHERE (id = ?)",
+        [id],
+        (err, result) => {
             if(err) 
                 console.log(err)
             else 
